@@ -1,46 +1,39 @@
-@CrearValidar
-  Feature: Validacion de API Store de PetStore
-    COMO automatizador de NTTDATA
-    QUIERO validar la integridad de creacion y consulta de pedidos en la tienda PetStore
-    PARA garantizar el funcionamiento y validación de la conexion de la BD
+@PruebaAPI
+Feature: Validacion de API Store de PetStore
+  COMO automatizador de NTTDATA
+  QUIERO validar la integridad de creacion y consulta de pedidos en la tienda PetStore
+  PARA garantizar el funcionamiento y validación de la conexion de la BD
 
-    Background:
-      Given defino la URL base de la api "https://petstore.swagger.io/v2/"
+  Background:
+    Given defino la URL de la tienda "https://petstore.swagger.io/v2"
 
-    @TestCreacionOrder
-    Scenario Outline: Creacion de un nuevo pedido en PetStore
-      Given creacion de Order POST "/store/order"
-      When envia una peticion con el body:
-        """
-        {
-          "id": <id>,
-          "petId": <petId>,
-          "quantity": <quantity>,
-          "shipDate": "<shipDate>",
-          "status": "<status>",
-          "complete": <complete>
-        }
-        """
-      Then valido el codigo de respuesta sea <codEstado>
-      And valido que el body contenga:
-        | id       | <id>       |
-        | petId    | <petId>    |
-        | quantity | <quantity> |
-        | status   | <status>   |
-        | complete | <complete> |
+  @CreacionMascota
+  Scenario Outline: Creacion de un nuevo pedido en PetStore
+    When envia una solicitud POST con el siguiente body:
+      """{
+      "id":<id>,
+      "petId":<petID>,
+      "quantity":<quantity>,
+      "shipDate":"<shipDate>",
+      "status":"<status>",
+      "complete":<complete>
+      }
+      """
+    Then valido el codigo de respuesta es <codEstado>
+    And valido el id sea <id>
 
-      Examples:
-        | id  | petId | quantity | shipDate                 | status | complete | codEstado |
-        | 2   | 5     | 2        | 2025-09-19T10:27:35.372Z | placed | true     | 200       |
+    Examples:
+      | id   | petID  | quantity | shipDate                 | status   | complete | codEstado |
+      | 2    | 5      | 2        | 2025-09-19T10:27:35.372Z | placed   | true     | 200       |
 
-    @TestConsultaOrder
-    Scenario Outline: Consulta de un pedido existente en PetStore
-      Given consulta de Order GET "<id>"
-      When se realiza la peticion para obtener el pedido
-      Then valido el codigo de respuesta sea <codEstado>
-      And valido que el body contenga:
-        | id       | <id>       |
+  @ConsultaMascota
+  Scenario Outline: Consulta de pedido en PetStore
+    When envia una solicitud GET
+    Then valido el codigo de respuesta es <codRespuesta>
+    And valido el id con <id>
 
-      Examples:
-        | id  | codEstado |
-        | 2   | 200       |
+    Examples:
+      | id  | codRespuesta |
+      | 101 | 200          |
+      | 102 | 200          |
+      | 103 | 200          |

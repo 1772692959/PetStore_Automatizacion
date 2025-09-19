@@ -6,11 +6,10 @@ import org.junit.runner.RunWith;
 
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(
-        features = "src/test/resources/features",
-        glue = {"glue"},
-        plugin = {"pretty", "html:target/cucumber-report.html"},
-        monochrome = true
+        plugin = {"pretty"},
+        features = "classpath:features",
+        //cambiamos por el test que se realizara
+        tags = "@CreacionMascota"   //  ==> Definir el @tag  a ejecutar
 )
 public class CucumberTestSuite {
-
 }
