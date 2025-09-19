@@ -24,31 +24,31 @@ public class PetStoreDef {
         tienda.solicitudBodyPost(body);
     }
 
-    @Then("valido el codigo de respuesta es <codEstado>")
+    @Then("valido el codigo de respuesta es {string}")
     public void validoElCodigoDeRespuestaEsCodEstado(String CodigoEstado) {
         tienda.validoCodigoRespuesta(CodigoEstado);
     }
 
-    @And("valido el id sea <id>")
+    @And("valido el id sea {string}")
     public void validoElIdSeaId(String IDvalido) {
         tienda.validoCodigoRespuesta(IDvalido);
     }
 
     //GET
 
-    @When("envia una solicitud GET")
+    @When("envia una solicitud GET con {string}")
     public void enviaUnaSolicitudGET(String id) {
         tienda.obtenerID(id);
 
     }
 
-    @Then("valido el codigo de respuesta es <codRespuesta>")
+    @Then("valido codigo de respuesta es {string}")
     public void validoElCodigoDeRespuestaEsCodRespuesta(String CodigoRespuesta) {
         tienda.validacionCodigoRespuesta(CodigoRespuesta);
 
     }
 
-    @And("valido el id con <id>")
+    @And("valido el id con {string}")
     public void validoElIdConId(String id) {
         tienda.validacionID(id);
 

@@ -37,21 +37,28 @@ public class PetStore {
     //GET
 
     public void obtenerID(String id) {
-        System.out.println("Validación del id de la orden");
-        Assert.assertEquals("No coincide el id de la orden",id,response.jsonPath().getString("id"));
+        response = RestAssured
+                .given()
+                .contentType("application/json")
+                .relaxedHTTPSValidation()
+                .baseUri(this.Base_URL)
+                .log().all()
+                .when()
+                .get("/store/order/"+id)
+                .then()
+                .log().all()
+                .extract().response();
     }
 
     public void validacionCodigoRespuesta(String codigoRespuesta) {
-        System.out.println("Validación del estado  de la orden");
-        Assert.assertEquals("No coincide el estado de la orden",codigoRespuesta,response.jsonPath().getString("status"));
-
+        System.out.println("Validación del codigo de repuesta");
+        int esperado = Integer.parseInt(codigoRespuesta);
+        Assert.assertEquals("Los codigos son diferentes",esperado,response.getStatusCode());
     }
 
     public void validacionID(String id) {
         System.out.println("Validación del id de la consulta mediante el metodo GET");
         Assert.assertEquals("No coincide el id de la orden",id,response.jsonPath().getString("id"));
     }
-
-
 
 }

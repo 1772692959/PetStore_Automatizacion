@@ -19,8 +19,8 @@ Feature: Validacion de API Store de PetStore
       "complete":<complete>
       }
       """
-    Then valido el codigo de respuesta es <codEstado>
-    And valido el id sea <id>
+    Then valido el codigo de respuesta es "<codEstado>"
+    And valido el id sea "<id>"
 
     Examples:
       | id   | petID  | quantity | shipDate                 | status   | complete | codEstado |
@@ -28,12 +28,10 @@ Feature: Validacion de API Store de PetStore
 
   @ConsultaMascota
   Scenario Outline: Consulta de pedido en PetStore
-    When envia una solicitud GET
-    Then valido el codigo de respuesta es <codRespuesta>
-    And valido el id con <id>
+    When envia una solicitud GET con "<id>"
+    Then valido codigo de respuesta es "<codRespuesta>"
+    And valido el id con "<id>"
 
     Examples:
       | id  | codRespuesta |
-      | 101 | 200          |
-      | 102 | 200          |
-      | 103 | 200          |
+      | 1   | 200          |
